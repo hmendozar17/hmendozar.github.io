@@ -1,7 +1,5 @@
-# Introduction {#intro}
+# Probability Review {#intro}
 
-
-# Probability Review
 
 In This chapter we introduce probability copcepts to deal with uncertainty. Stochastic simulations requiere probability as an essential tool. Simulations are very useful in situations that are too complex to analyse theoretically. In this chapter we cover
 \begin{comment}

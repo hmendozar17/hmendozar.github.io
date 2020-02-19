@@ -107,11 +107,11 @@ But how close is this for a given, finite $n$?
 
 - Negative Binomial (or Pascal) Distribution
 
-We say $X \sim NB(r,p)$ if the probability mass function of $X$ is   
- 
-	$$P(X=k) =   {k+r-1 \choose k}p^{r}(1-p)^{k}$$
-
-	for $k=0, 1, 2, \ldots$.
+We say $X\sim NB(r,p)$ if the probability mass function of $X$ is   
+ \begin{equation}
+P(X=k) ={k+r-1\choose k}p^{r}(1-p)^{k}
+\end{equation}
+for $k=0, 1, 2, \ldots$.
 
 -  $X$ denotes the number of Failures till the $r$th Success; and $p$ is the probability of Success. 
 -  Sometimes: the number of failures which occur in a sequence of Bernoulli trials before a target number of successes is reached
