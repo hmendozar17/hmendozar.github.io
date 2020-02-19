@@ -1,0 +1,15 @@
+--- 
+title: "Introduction to Computational Statistics"
+author: "Henry Mendoza Rivera"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This is an introductory stat course in computational statistics "
+---
+
+
