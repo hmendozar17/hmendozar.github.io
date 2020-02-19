@@ -1,0 +1,202 @@
+# Simulation
+## Random Number Functions
+
+- R has a number of built-in functions associated with specific distributions.
+- These provide the density, distribution, and quantile functions ofeach distribution as well as generating random numbers from them.
+- Example: the normal family
+
+**dnorm** Normal density.
+
+**pnorm** Cumulative normal density.
+
+**qnorm** Normal quantiles (q(p) ={u:P(x≤u) =p})
+
+**rnorm** Generates normal random numbers.
+
+- **Example:** dnorm, pnorm, and qnorm
+
+```{r}
+# Sequence of numbers
+x = seq(-3,3,0.1)  
+# Plot window with 2-by-2 panes filled by row.
+par(mfrow=c(2,2))  
+
+plot(x,dnorm(x,mean=0,sd=1),type='l',col="blue",main="f(x):X~N(mean=0,sd=1)")
+plot(x,pnorm(x,mean=0,sd=1),type='l',col="blue",main="F(x):X~N(mean=0,sd=1)")
+# probabilities between 0 and 1
+p = seq(0,1,0.01) 
+plot(p,qnorm(p,mean=0,sd=1),type='l',col="blue")
+
+z = rnorm(100,mean=3,sd=5)
+plot(z,col="blue")
+
+```
+- **rnorm**
+```{r}
+x<-rnorm(100000,mean=10, sd=2)
+hist(x,breaks=150,xlim=c(0,20),freq=FALSE)
+abline(v=c(mean(x)), lwd=3,lty=3,col="red")
+```
+- Normal distribution with mean o and variance 1
+```{r}
+x <- seq(-3, 3, length=1000)
+y <- dnorm(x, mean=0, sd=1)
+plot(x, y, type="l", lwd=1,col="red")
+
+```
+
+![](./GraphsStat471/RRandomsample.png)
+
+## The sample Function
+Sometimes you want to randomly select elements from a set
+
+```{r}
+# Population
+  y = sqrt(1:10)
+# Random sample of size n=5 
+  z = sample(x=y,size=5)  
+```
+If sample is given **n** instead of **x**, it assumes **1:n**
+%This will be useful on Homework 1.
+```{r}
+sample(x=10,size=5)
+
+```
+
+You can also sample **with replacement**. This means each time you choose from the original collection and  can get repeated elements:
+
+```{r}
+sample(x=y,5,replace=TRUE) 
+```
+- **In-Class ACTIVITY**
+
+![](./GraphsStat471/listBussioness.png)
+```{r}
+# Write the code to select a sample of size 5 from a business with 20 employees.
+# Write the names of the employees
+```
+
+## Chapter 14-15-16: Simulation
+- Why do statisticians need to generate random numbers at all?
+1. To investigate the sample properties of complex statistical procedures
+
+2. To investigate the sample properties of complex statistical procedures. %To torture students.
+
+3. To verify mathematical results (e.g. the square of a normal is a $\chi^2_1$)
+
+4. To assess convergence to asymptotic results (eg, central limit theorem).
+
+5. Within some statistical procedures (later in the course).
+
+
+## Chapter 14-15-16: Evaluating the Central Limit Theorem}
+
+ We know that if $X_1,X_2,\ldots$ are i.i.d. with mean $\mu$ and variance $\sigma^2$, but no other conditions
+\[
+\sqrt{n} \left(\frac{1}{n} \sum_{i=1}^n X_i - \mu \right) \stackrel{d}{\rightarrow} N(0,\sigma^2)
+\]
+
+
+But how close is this for a given, finite $n$?
+
+
+## Chapter 14-15-16:Example for a negative binomial random variable
+
+-  suppose we had three negative binomial random variables with $r=1$ and $p = 0.07$?
+
+
+- Negative Binomial (or Pascal) Distribution
+
+We say $X \sim NB(r,p)$ if the probability mass function of $X$ is   
+ 
+	$$P(X=k) =   {k+r-1 \choose k}p^{r}(1-p)^{k}$$
+
+	for $k=0, 1, 2, \ldots$.
+
+-  $X$ denotes the number of Failures till the $r$th Success; and $p$ is the probability of Success. 
+-  Sometimes: the number of failures which occur in a sequence of Bernoulli trials before a target number of successes is reached
+- The total number of Bernoulli trials is $Z+r$.
+- $E(X) = \frac{(1-p)r}{p}$ and $Var(X) = \frac{(1-p)r}{p^2}$
+- $r=1$: Geometric Distribution
+
+
+```{r}
+x.nbinom = rnbinom(500,1,0.05)
+hist(x.nbinom,50,freq=FALSE)
+
+x.nbinom= seq(0,100,5)
+lines(x.nbinom,dnbinom(x.nbinom,1,0.07),
+type='b',col='blue')
+```
+
+## A Simulation Experiment
+
+
+-  Recall that for $r=1$, $E X = \frac{1-p}{p} = 13.286$, $\mbox{Var}(X) = \frac{1-p}{p^2} = 189.796$. 
+
+
+
+```{r}
+nsim = 500              # Define simulation parameters
+n = 3
+p = 0.07
+mu = (1-p)/p
+sig = sqrt( (1-p)/p^2 )
+
+res = rep(0,nsim)
+
+for(i in 1:nsim){        # Run Simulations
+  Z = rnbinom(n,1,p)
+  res[i] = sqrt(n)/sig*( mean(Z) - mu )
+}
+
+hist(res,50,freq=FALSE)  # Plot Results
+x = seq(-3,3,0.1)
+lines(x,dnorm(x))
+```
+
+## Some Comments On Good Simulation Code
+
+- Pre-define as many simulation constants into R objects as possible.
+
+- This way, to change the simulation (eg, if we wanted to change $p$), we only
+need to do so in one place.
+
+- Pre-compute numbers that will be used many times $\mu$ and $\sigma$ above).
+
+- Store as much as possible; you never know when you will need it.
+
+- Ideally, you can re-create **exactly** the same results from your simulation if you need to (I maybe should have stored all the Z that I generated).
+
+
+## Some More Comments On Good Code
+
+- Further general guidelines:
+
+- Organize your code in coherent .R files (functions related to a particular task, simulations for a particular set of results).
+
+- Provide an overall description at the start of the file - what is this code doing?
+
+- Date the last time you modified the code -- even better, keep a running log of changes you have made.
+
+-  Arrange your code into coherent blocks; reading/generating data, running the simulation, collating results and make sure these are clearly separated and labeled.
+
+-  When you save simulation results (including plots from them), include as much information in the file name as possible (esp. the date); keep a file documenting exactly what each of these results means and contains.
+
+-  Comment everything!
+
+
+## Larger $n$
+
+Because I pre-defined **n=3**, it's easy to change it to 30, 100, 500.
+
+![](./GraphsStat471/sim30-100.png)
+
+## SHORTCUT IN R
+
+- **Jump to Line command:** Keyboard shortcut: Alt+Shift+G (Mac: Option+Shift+Cmd+G).
+- to run current Chunk,  Mac: Shift+Cmd+return.
+- Mac: Opt+Cmd+I to insert a chunk
+
+
+

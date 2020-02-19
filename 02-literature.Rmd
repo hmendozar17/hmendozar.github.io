@@ -1,4 +1,5 @@
-# Univariate Random variables:URV
+# Random Variables Review
+## Univariate Random variables:URV
 A random variable is always a measurable function as we present in the following definition.
 
 <div class="alert alert-warning"><small>
