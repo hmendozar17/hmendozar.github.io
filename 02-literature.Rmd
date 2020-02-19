@@ -1,3 +1,127 @@
-# Literature
+# Univariate Random variables:URV
+A random variable is always a measurable function as we present in the following definition.
 
-Here is a review of existing methods.
+<div class="alert alert-warning"><small>
+```{definition, name="Univariate Random variable"}
+Let $(\Omega, \mathcal{A},P)$ be a probability space. A function
+\begin{equation*}
+X:\Omega\rightarrow \mathbb{R}
+\end{equation*}
+is called a **random variable** if  the inverse image under $X$ of all Borel sets in $\mathbb{R}$ are events. That is, 
+\begin{equation*}
+X^{-1}(B)=\lbrace \omega: X(w) \in B \rbrace \in \mathcal{A} \qquad \forall B \in \beta (\mathbb{R})
+\end{equation*}
+```                                                                                          
+</small>
+</div>
+
+<div class="alert alert-success"><small>
+Note:
+usually we use $B=(-\infty,x])$
+</small>
+</div>
+
+
+
+```{example,name="A coin"}
+Let $\Omega=\lbrace H,T \rbrace$, and $\mathcal{A}$ be the class of all subsets of $\Omega$. Define $X$ by $X(H)=1, X(T)=0$. Then,
+  \begin{equation}
+   X^{-1}(-\infty, x]  =
+\begin{cases}
+\emptyset,  & \text{if $x<0$ } \\
+\{T\}, & \text{if $0\leq x<1$}\\
+\{H,T \}, & \text{if $x\geq 1$.}
+\end{cases}
+\end{equation}
+and we see that $X$ is  a  RV. 
+```
+
+
+
+
+```{example, name="Two coins"}
+Let $\Omega=\{ HH, TT, HT,TH\}$ and $\mathcal{A}$ be the class of  all subsets  of $\Omega$. Define $X$ by:
+
+$X(\omega)=$ Number of Heads in $\omega$. Then $X(HH)=2$, $X(HT)=X(TH)=1$, and $X(TT)=0$.
+
+\begin{equation}
+   X^{-1}(-\infty, x] 
+\begin{cases}
+\emptyset,  & \text{if $x<0$ } \\
+\{TT\}, & \text{if $0\leq x<1$}\\
+\{TH,HT\},& \text{if  $1\leq x<2$,}\\
+\{HH \}, & \text{if $x\geq 2$.}
+\end{cases}
+\end{equation}
+```
+## Discrete  Variable
+<div class="alert alert-warning"><small>
+```{definition,name="Discrete  Variable"}
+A random variable defined on $(\Omega, \mathcal{A} , P)$ is said to be discrete type, or simple discrete, if   there exist a countable set $B\subseteq \mathbb{R}$ such that $P(x \in B)=1$. The elements of $B$ will be called possible values of $X$. And usually are denoted by
+$$
+X=\{x_1,\ldots,x_n\}
+$$
+```
+</small>
+</div>
+
+## Probability  Mass Function 
+<div class="alert alert-warning"><small>
+```{definition,name="Probability  Mass Function "}
+The function $P_X: \mathbb{R} \longrightarrow [0,1]$ defined by
+\begin{equation*}
+P_X(X=x)=P\circ X^{-1} (x)=P(X^{-1} (x))=P\{\omega\in \Omega:X(\omega)=x\}
+\end{equation*}
+Is called {\bf discrete density of the discrete RV $X$}.
+Or the collection of number $\{ p_i\rbrace$ satisfying, $P(\lbrace X= x_i\} )= p_i \geq 0$, for all i and  $\sum \limits_{i=1}^\infty p_i =1$, is called The Probability Mass Function (PMF) of RV $X$. 
+```
+</small>
+</div>
+
+
+<div class="alert alert-warning"><small>
+```{definition, name="Distribution Probability Mass Function"}
+The distribution Function of $x$ is given by
+\begin{equation}
+f_X(x)=P_X(X\leq x)=\sum _{y\leq x} P_X{(y)}
+\end{equation}
+```
+</small>
+</div>
+
+
+Find the $F(x)$ for a random variable $X$ with  pmf
+\begin{equation}
+f_X(x) =
+\begin{cases}
+\frac{1}{7}, & \text{if $x=-2$,} \\
+\frac{3}{7}, & \text{if $x=\frac{1}{2}$,} \\
+\frac{3}{7}, & \text{if $x=\sqrt{2} $,}\\
+0, & \mbox{Otherwise.}
+\end{cases}
+\end{equation}
+
+
+```{example,name="DF of a variable X"}
+If the DF of X is given by:
+  \begin{equation}
+F_X(x) = 
+\begin{cases}
+0, & \mbox{if $x<-2$,} \\
+\frac{1}{7}, & \mbox{if $-2\leq x< 2$,} \\
+\frac{4}{7}, & \mbox{if $\frac{1}{2}\leq x < \sqrt{2} $,}\\
+1,  & \mbox{if $x\geq \sqrt{2}$.}
+\end{cases}
+  \end{equation}
+```
+
+
+Given $F(x)$ What is $f_X(x)$ ?
+Remember that
+\begin{eqnarray*}
+P_X(X=x)&=&P_X(x)\\
+	  &=&F_X(x)-F_X(x^-)  \qquad \forall x\in \mathbb{R}
+\end{eqnarray*}
+That is, the DF  of  a RV $X$, completely determine the density  probability  function.
+
+
